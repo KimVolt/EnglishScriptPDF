@@ -1,3 +1,5 @@
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfbase import pdfmetrics
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from reportlab.lib import colors
@@ -35,6 +37,28 @@ class PDFGenerator:
         self.buffer = []
         self.page_width, self.page_height = letter
         self.topic = topic
+        
+        # custom configuration
+        self.colors = {
+            'left': colors.lightcyan,
+            'right': colors.lightgoldenrodyellow
+        }
+        
+        """
+        pdfmetrics.registerFont(TTFont('NotoSans', 'C:\\Windows\\Fonts\\NotoSans-Regular.ttf'))
+        pdfmetrics.registerFont(TTFont('NotoSans-Medium', 'C:\\Windows\\Fonts\\NotoSans-Medium.ttf'))
+        pdfmetrics.registerFont(TTFont('NotoSans-Bold', 'C:\\Windows\\Fonts\\NotoSans-Bold.ttf'))
+               
+        self.fonts = {
+            'normal': 'NotoSans',
+            'medium': 'NotoSans-Medium',
+            'bold': 'NotoSans-Bold' 
+        }"""
+        
+        self.fonts = {
+            'normal': 'Helvetica',
+            'bold': 'Helvetica-Bold'
+        }  
 
     def add_message(self, name, message):
         self.buffer.append((name, message))
@@ -43,9 +67,9 @@ class PDFGenerator:
         c = canvas.Canvas(filename, pagesize=letter)
         width, height = self.page_width, self.page_height
 
-        c.setFont("Helvetica-Bold", 16)
+        c.setFont(self.fonts['bold'], 16)
         c.drawCentredString(width / 2.0, height - inch, self.topic)
-        c.setFont("Helvetica", 12)
+        c.setFont(self.fonts['normal'], 12)
         margin = 1 * inch
         y = height - 1.5 * inch
 
@@ -56,18 +80,18 @@ class PDFGenerator:
                 c.setFont("Helvetica", 12)
 
             if name == self.buffer[0][0]:  # 첫 번째 talker는 왼쪽
-                self.draw_bubble(c, margin, y, width - 2 * margin, name, message, colors.lightblue, align='left')
+                self.draw_bubble(c, margin, y, width - 2 * margin, name, message, self.colors['left'], align='left')
                 y -= 60
             else:  # 두 번째 talker는 오른쪽
-                self.draw_bubble(c, margin, y, width - 2 * margin, name, message, colors.lightgreen, align='right')
+                self.draw_bubble(c, margin, y, width - 2 * margin, name, message, self.colors['right'], align='right')
                 y -= 60
 
         c.save()
 
     def draw_bubble(self, c, x, y, max_width, name, text, color, align='left'):
         padding = 5
-        text_width = c.stringWidth(text, "Helvetica", 12)
-        name_width = c.stringWidth(name, "Helvetica-Bold", 12) + padding
+        text_width = c.stringWidth(text, self.fonts['normal'], 12)
+        name_width = c.stringWidth(name, self.fonts['bold'], 12) + padding
         bubble_width = max(text_width, name_width) + 2 * padding
         bubble_height = 40
 
@@ -83,9 +107,9 @@ class PDFGenerator:
         c.setFillColor(color)
         c.roundRect(bubble_x, bubble_y, bubble_width, bubble_height, 5, fill=1)
         c.setFillColor(colors.black)
-        c.setFont("Helvetica-Bold", 12)
+        c.setFont(self.fonts['normal'], 12)
         c.drawString(bubble_x + padding, bubble_y + bubble_height - 15, name)
-        c.setFont("Helvetica", 12)
+        c.setFont(self.fonts['normal'], 12)
         if text_align == 'left':
             c.drawString(bubble_x + padding, bubble_y + 10, text)
         else:
