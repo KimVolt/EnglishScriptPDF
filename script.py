@@ -46,7 +46,8 @@ class PDFGenerator:
         }
 
     def add_message(self, name, message):
-        self.buffer.append((name, message))
+        formatted_message = self.formatted_message(message)
+        self.buffer.append((name, formatted_message))
 
     def save_pdf(self, filename):
         c = canvas.Canvas(filename, pagesize=letter)
@@ -77,7 +78,7 @@ class PDFGenerator:
 
     def draw_bubble(self, c, x, y, max_width, name, text, color, align='left'):
         padding = 5
-        styles = getSampleStyleSheet()
+        styles = getSampleStyleSheet() # get default style
         
         # Define styles for name and text separately
         name_style = ParagraphStyle(name='Name', parent=styles['Normal'], fontName='Helvetica-Bold', fontSize=12, alignment=TA_LEFT if align == 'left' else TA_RIGHT)
@@ -110,3 +111,6 @@ class PDFGenerator:
         text_para = Paragraph(text, text_style)
         _, text_height = text_para.wrap(max_width - 10, 0)  # Adjust the width with padding
         return text_height
+    
+    def formatted_message(self, message):
+        return message.replace('\n', '<br />')
