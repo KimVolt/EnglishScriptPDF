@@ -1,0 +1,112 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 { 
+    text-align: center; 
+}
+
+.container {
+    max-width: 800px;
+    width: 60%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.block {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #ffffff;
+}
+
+.block h2 {
+    margin-top: 0;
+    font-size: 1.5em;
+    color: #333;
+}
+
+.block input, .block button, .block textarea {
+    margin-top: 10px;
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+input[type="text"], textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    box-sizing : border-box;
+}
+
+button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#talker-container {
+    margin-top: 20px;
+}
+
+.talker-input {
+    margin-bottom: 10px;
+}
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-bubble {
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    max-width: 60%;  /* 최대 너비를 설정 */
+    word-wrap: break-word;  /* 단어를 줄바꿈 할 수 있도록 설정 */
+    word-break: break-word;  /* 긴 단어를 줄바꿈할 수 있도록 설정 */
+    clear: both;
+    display: inline-block;  /* 말풍선 크기를 텍스트에 맞게 조정 */
+}
+
+.left {
+    background-color: #00BFA5;
+    color: black;
+    align-self: flex-start;
+    text-align: left;
+}
+
+.right {
+    background-color: #FFC107;
+    color: black;
+    align-self: flex-end;
+    text-align: right;
+}
+
+.name {
+    font-weight: bold;
+}
+
+.message {
+    margin-top: 5px;
+}

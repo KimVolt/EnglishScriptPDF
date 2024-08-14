@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Study Interface</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>English Study Interface</h1>
+
+        <!-- Display Container for Chat -->
+        <div id="display-container" class="block">
+            <h2 style="text-align: center;">Chat Viewer</h2>
+            <div class="chat-container">
+                <!-- 여기에 대화 내용이 추가될 것입니다. -->
+            </div>
+        </div>
+
+        <!-- Topic -->
+        <div class="block">
+            <h2>Topic</h2>
+            <input type="text" id="topic" placeholder="Enter Topic"><br><br>
+        </div>
+
+        <!-- Talkers -->
+        <div class="block">
+            <h2>Talkers</h2>
+            <div id="talker-container"></div>
+            <button onclick="addTalker()">Add talker</button><br><br>    
+        </div>
+
+        <!-- Messages -->
+        <div class="block">
+            <h2>Messages</h2>
+            <div id="message-container"></div>
+            <button onclick="saveAsPDF()">Save as PDF</button>
+        </div> 
+    </div>
+
+    <script src="{{ url_for('static', filename='functions.js') }}"></script>
+</body>
+</html>

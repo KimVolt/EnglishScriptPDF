@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ topic }}</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            padding: 2em;
+            background-color: #f5f5f5;
+        }
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-bubble {
+            padding: 10px 20px;
+            margin-bottom: 20px;
+            border-radius: 20px;
+            max-width: 60%;
+            word-wrap: break-word;
+            word-break: break-word;
+            display: inline-block;
+            clear: both;  /* 요소들이 겹치지 않도록 보장 */
+        }
+
+        .left {
+            background-color: #00BFA5;
+            color: black;
+            align-self: flex-start;
+            text-align: left;
+            float: left; /* 추가 */
+        }
+
+        .right {
+            background-color: #FFC107;
+            color: black;
+            align-self: flex-end;
+            text-align: right;
+            float: right; /* 추가 */
+        }
+
+        .name {
+            font-weight: bold;
+        }
+        .message {
+            margin-top: 5px;
+        }
+
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">{{ topic }}</h1>
+    <div class="chat-container">
+        {% for message in messages %}
+            <div class="chat-bubble {{ 'left' if message.talker == messages[1].talker else 'right' }}">
+                <div class="name">{{ message.talker }}</div>
+                <div class="message">{{ message.message|safe }}</div>
+            </div>
+        {% endfor %}
+    </div>    
+</body>
+</html>
